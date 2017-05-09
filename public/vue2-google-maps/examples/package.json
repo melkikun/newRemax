@@ -1,0 +1,16 @@
+{
+  "name": "examples",
+  "version": "1.0.0",
+  "description": "## All Components Example (all-components.html)",
+  "main": "vue-google-maps.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "vue": "^2.1.8",
+    "vue2-google-maps": "^0.5.2"
+  }
+}
