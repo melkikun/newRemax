@@ -22,7 +22,7 @@ class GaleryController extends Controller
         $this->uri = $this->api->getBaseUri();
     }
 
-    public function getGallery()
+    public function index()
     {
 
         try {

@@ -76,10 +76,10 @@
                 <div class="share-news">
                     <ul>
                         <li>SHARE</li>
-                        <li><a href="http://www.facebook.com/share.php?u={{ route('news.detail',$body->data->id) }}&title={{ $body->data->wbnlTitle->en }}"><img src="{{ asset('assets/img/remax-fb.png') }}" alt=""></a></li>
-                        <li><a href="http://www.linkedin.com/shareArticle?mini=true&url={{ route('news.detail',$body->data->id) }}&title={{ $body->data->wbnlTitle->en }}"><img src="{{ asset('assets/img/remax-in.png') }}" alt=""></a></li>
-                        <li><a href="http://twitter.com/home?status={{ $body->data->wbnlTitle->en }}+{{ route('news.detail',$body->data->id) }}"><img src="{{ asset('assets/img/remax-tw.png') }}" alt=""></a></li>
-                        <li><a href="https://plus.google.com/share?url={{ route('news.detail',$body->data->id) }}"><img src="{{ asset('assets/img/remax-gp.png') }}" alt=""></a></li>
+                        <li><a href="http://www.facebook.com/share.php?u={{ url('news.detail',$body->data->id) }}&title={{ $body->data->wbnlTitle->en }}"><img src="{{ asset('assets/img/remax-fb.png') }}" alt=""></a></li>
+                        <li><a href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('news.detail',$body->data->id) }}&title={{ $body->data->wbnlTitle->en }}"><img src="{{ asset('assets/img/remax-in.png') }}" alt=""></a></li>
+                        <li><a href="http://twitter.com/home?status={{ $body->data->wbnlTitle->en }}+{{ url('news.detail',$body->data->id) }}"><img src="{{ asset('assets/img/remax-tw.png') }}" alt=""></a></li>
+                        <li><a href="https://plus.google.com/share?url={{ url('news.detail',$body->data->id) }}"><img src="{{ asset('assets/img/remax-gp.png') }}" alt=""></a></li>
                     </ul>
                 </div>
             </div>

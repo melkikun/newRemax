@@ -80,12 +80,12 @@
                 <li><a href="{{ url('/') }}">Home</a></li>
                 <li class="">News</li>
             </ol>
-
+            
             <div id="main" class="row">
                 <div class="content-news row" style="margin-bottom: 40px;">
 
                     @foreach($body->data as $data)
-                        <a href="{{ route('news.detail',$data->id) }}">
+                        <a href="{{ url('news',$data->id) }}">
                             <article class="article-news">
                                 <div class="article-inner">
                                     @if($data->links->wbneFileId != null)
@@ -113,7 +113,7 @@
                                                 <span class="news-date">{{ Carbon\Carbon::parse($data->wbnlCreatedTime)->format('D')  }}
                                                     , {{ $data->wbnlCreatedTime }}</span>
                                             </div>
-                                            <a href="{{ route('news.detail',$data->id) }}"><h2
+                                            <a href="{{ url('news.detail',$data->id) }}"><h2
                                                         class="article-title">{{ $data->wbnlTitle }}</h2></a>
                                         </div>
                                         <div>

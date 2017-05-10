@@ -51,11 +51,11 @@ class HomeController extends Controller
         }
     }
 
-    public function searchHome(Request $request)
+    public function searchHome()
     {
 
-//        $buySearch = $request->input('buySearch');
-//        $rentSearch = $request->input('rentSearch');
+       $buySearch = $request->input('buySearch');
+       $rentSearch = $request->input('rentSearch');
 //
 //             $client = new GuzzleHttpClient(['base_uri' => 'http://prodigy.intelligence.id/', 'verify' => false]);
 //

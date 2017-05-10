@@ -16,9 +16,9 @@
 
 // Route::get('/','HomeController@getData')->name('/');
 
-// Route::get('properties',function(){
-//     return view('search');
-// })->name('properties');
+Route::get('properties',function(){
+    return view('search');
+})->name('properties');
 
 // Route::get('properties/search',[
 //    'uses' => 'HomeController@searchHome',
@@ -56,23 +56,23 @@ Route::group(['domain' => '{account}.localhost'], function () {
 
 	/*route menu utama*/
 	Route::get('', 'HomeController@index')->name("homepage");
-	Route::get('/about', 'IndexController@about')->name("about");
-	Route::get('/franchise', 'IndexController@franchise')->name("agent.list");
-	Route::get('/agents', 'IndexController@agent')->name("agent");
-	Route::get('/albums', 'IndexController@gallery')->name("gallery");
-	Route::get('/news', 'NewsController@getData')->name("news");
-	Route::get('/properties', 'IndexController@property')->name("property");
-	Route::get('/contact', 'IndexController@contact')->name("contact");
+	Route::get('/about', 'AboutController@index')->name("about");
+	Route::get('/franchise', 'FranchiseController@index')->name("agent.list");
+	Route::get('/agents', 'AgentController@index')->name("agent");
+	Route::get('/albums', 'GaleryController@index')->name("gallery");
+	Route::get('/news', 'NewsController@index')->name("news");
+	// Route::get('/properties', 'IndexController@property')->name("property");
+	Route::get('/contact', 'ContactController@index')->name("contact");
 
 	/*route menu detail*/
 	//gallery detail
-	Route::get('/albums/{id}','GalleryController@listDetail')->name("gallery.detail");
+	Route::get('/gallery/{id}','GalleryDetailController@index')->name("gallery.detail");
 	//news detail
 	Route::get('/news/{id}', 'NewsController@listNews')->name('news.detail');
 	//property detail
 	Route::get('/property/{id}', 'PropertyController@listProperty')->name('property.detail');
 	//news detail
-	Route::get('/news/{id}', 'NewsController@listNews')->name('property.detail');
+	Route::get('/news/{id}', 'NewsController@newsDetail')->name('property.detail');
 	//agent detail
 	Route::get('/agents/{id}', 'AgentController@alphabethAgent')->name('property.detail');
 

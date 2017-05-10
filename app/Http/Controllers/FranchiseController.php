@@ -30,7 +30,7 @@ class FranchiseController extends Controller
     }
 
 
-    public function getData()
+    public function index()
     {
 
 

@@ -23,10 +23,8 @@ class NewsController extends Controller
         $this->request = $request;
     }
 
-    public function getData()
+    public function index()
     {
-        echo $this->request->session()->get('bahasa');
-        exit();
         try {
 
             $getClient = $this->client->get('webnews');
@@ -56,7 +54,7 @@ class NewsController extends Controller
     }
 
 
-    public function newsDetail($id)
+    public function newsDetail($account, $id)
     {
         try {
 

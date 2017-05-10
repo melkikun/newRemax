@@ -23,7 +23,7 @@ class GalleryDetailController extends Controller
     }
 
 
-    public function getGalleryDetail($id)
+    public function index($account, $id)
     {
         try {
             $getClient = $this->client->get('webgallerydetail?filter[wbgaWbgyId]=' . $id . '');

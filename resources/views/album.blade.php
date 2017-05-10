@@ -29,7 +29,7 @@
                 <div class="row m0">
                     @foreach($body->data as $data)
                         <div class="col-md-3">
-                            <a href="{{ route('gallery.detail',$data->id) }}">
+                            <a href="{{ url('gallery',$data->id) }}">
                                 <div class="gallery-list" data-date="10 September 2016"
                                      data-title="{{$data->wbgyTitle }}">
                                     <div class="s-image">

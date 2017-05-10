@@ -22,7 +22,7 @@ class ContactController extends Controller
     }
 
 
-    public function getData()
+    public function index()
     {
 
         try {

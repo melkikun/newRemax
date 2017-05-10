@@ -26,7 +26,7 @@ class AgentController extends Controller
     }
 
 
-    public function getData()
+    public function index()
     {
 
         $test = new GuzzleHttpClient(['base_uri' => 'http://genius.intelligence.id/papi/','verify' => false]);
