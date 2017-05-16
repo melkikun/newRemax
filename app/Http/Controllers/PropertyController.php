@@ -27,8 +27,7 @@ class PropertyController extends Controller
         return view('search');
     }
 
-    public function showPropertyDetail($listUri)
-    {
+    public function showPropertyDetail($listUri){
         try {
             $getClient = $this->client->get('listing/'.$listUri);
             $body = $getClient->getBody();
@@ -52,15 +51,15 @@ class PropertyController extends Controller
 
             if ($getClient->getStatusCode() == 200) {
                 return view('property_page')
-                    ->with(['body' => $body])
-                    ->with(['uri' => $uri])
-                    ->with(['membership' => $membership])
-                    ->with(['office' => $office]);
+                ->with(['body' => $body])
+                ->with(['uri' => $uri])
+                ->with(['membership' => $membership])
+                ->with(['office' => $office]);
 
             } else {
                 return redirect()
-                    ->back()
-                    ->with('error', 'something error with API');
+                ->back()
+                ->with('error', 'something error with API');
             }
 
 

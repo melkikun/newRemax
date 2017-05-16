@@ -31,7 +31,8 @@ class HomeController extends Controller
     {
         $language = $this->bahasa->setSession($this->request->input("language")); 
         $id = $this->api->getOfficeInfo($account);
-        try{
+        if($id != ""){
+           try{
             $getList = $this->client->get('ListingCategory?language='.$language);
             $getBank = $this->client->get('bank');
             $bank = \GuzzleHttp\json_decode($getBank->getBody(),true);
@@ -40,22 +41,25 @@ class HomeController extends Controller
                 return view('index',compact('bank','list'));
             }else{
                 return redirect()
-                    ->back()
-                    ->with('error','something is error with API');
+                ->back()
+                ->with('error','something is error with API');
             }
         }catch (RequestException $e){
             echo Psr7\str($e->getRequest());
             if ($e->hasResponse()) {
                 echo Psr7\str($e->getResponse());
             }
-        }
+        } 
+    }else{
+        echo "tidak ada account";
     }
+}
 
-    public function searchHome()
-    {
+    // public function searchHome()
+    // {
 
-       $buySearch = $request->input('buySearch');
-       $rentSearch = $request->input('rentSearch');
+    //    $buySearch = $request->input('buySearch');
+    //    $rentSearch = $request->input('rentSearch');
 //
 //             $client = new GuzzleHttpClient(['base_uri' => 'http://prodigy.intelligence.id/', 'verify' => false]);
 //
@@ -87,8 +91,8 @@ class HomeController extends Controller
 //            }
 //        }
 
-        return view('search');
-    }
+    //     return view('search');
+    // }
 }
 
 

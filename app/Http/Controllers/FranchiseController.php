@@ -10,8 +10,7 @@ use App\Http\Helpers\Api;
 use Illuminate\Support\Facades\Session;
 
 
-class FranchiseController extends Controller
-{
+class FranchiseController extends Controller{
 
 
     protected $api;
@@ -19,7 +18,6 @@ class FranchiseController extends Controller
     protected $uri;
     protected $lang;
     protected $session;
-
 
     public function __construct(Api $api,Request $request)
     {
@@ -30,8 +28,7 @@ class FranchiseController extends Controller
     }
 
 
-    public function index()
-    {
+    public function index(){
 
 
             $test = new GuzzleHttpClient(['base_uri' => 'http://genius.intelligence.id/papi/','verify' => false]);

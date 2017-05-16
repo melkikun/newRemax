@@ -25,10 +25,10 @@ Route::get('properties',function(){
 //    'as' =>'search.home',
 // ]);
 
-// Route::get('property/{listUrl}',[
-//    'uses' => 'PropertyController@showPropertyDetail',
-//    'as' => 'property.show',
-// ]);
+Route::get('property/{listUrl}',[
+   'uses' => 'PropertyController@showPropertyDetail',
+   'as' => 'property.show',
+]);
 
 // Route::get('agents','AgentController@getData')->name('agents');
 
@@ -78,7 +78,7 @@ Route::group(['domain' => '{account}.localhost'], function () {
 
 	Route::get("properties/search/", 'PropertyController@search')->name('property.filter');
 
-	Route::get('/{id}', 'AgentController@listAgent')->name('property.detail');	
+	Route::get('/{id}', 'AgentController@detailAgent')->name('property.detail');	
 
 	Route::get('agents/searh','AgentController@alphabethAgent')->name('property.detail');
 });

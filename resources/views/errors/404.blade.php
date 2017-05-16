@@ -38,7 +38,7 @@
                             <div class="col-md-4 col-sm-6 no-page" style="margin-left: 50px;">
                                 <span class="sorry">Sorry, no page Found!</span>
                                 <p>The page you requested cannot be found , back to main page
-                                    <a href="{{ route('/')  }}">main page</a>.</p>
+                                    <a href="{{ url('/')  }}">main page</a>.</p>
                             </div>
                         </div>
                     </div>
