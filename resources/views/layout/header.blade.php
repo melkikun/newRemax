@@ -16,14 +16,11 @@
                             <a href="{{ url($data->wbmnAPI) }}">{{ $data->wbmlName }}</a>
                         </li>
                         @endforeach
-
-
                         <li>
                             <a href="https://www.remax.co.id/admin/">
                                 <i class="fa fa-lock" style="font-size:20px;"></i>
                             </a>
                         </li>
-
                         @foreach($language->data as $lg)
                         <li>
                             <a style="padding-left: 5px;padding-right: 5px;" href="?language={{$lg->langCode }}">
@@ -46,7 +43,6 @@
                         <span class="icon-bar"></span>
                     </div>
                 </a>
-
                 <div class="navbar-brand nav">
                     <a class="navbar-brand nav logo" href="{{ url('/') }}" title="" rel="home">
                         <object class="master-logo" type="image/svg+xml"></object>
