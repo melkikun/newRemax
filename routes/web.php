@@ -61,7 +61,6 @@ Route::group(['domain' => '{account}.localhost'], function () {
 	Route::get('/agents', 'AgentController@index')->name("agent");
 	Route::get('/albums', 'GaleryController@index')->name("gallery");
 	Route::get('/news', 'NewsController@index')->name("news");
-	// Route::get('/properties', 'IndexController@property')->name("property");
 	Route::get('/contact', 'ContactController@index')->name("contact");
 
 	/*route menu detail*/
@@ -73,12 +72,8 @@ Route::group(['domain' => '{account}.localhost'], function () {
 	Route::get('/property/{id}', 'PropertyController@listProperty')->name('property.detail');
 	//news detail
 	Route::get('/news/{id}', 'NewsController@newsDetail')->name('property.detail');
-	//agent detail
-	Route::get('/agents/{id}', 'AgentController@alphabethAgent')->name('property.detail');
-
 	Route::get("properties/search/", 'PropertyController@search')->name('property.filter');
-
 	Route::get('/{id}', 'AgentController@detailAgent')->name('property.detail');	
 
-	Route::get('agents/searh','AgentController@alphabethAgent')->name('property.detail');
+	Route::get('cariagen/search','AgentController@searchAgent')->name('property.detail');
 });

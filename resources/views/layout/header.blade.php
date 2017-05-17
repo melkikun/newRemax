@@ -51,7 +51,7 @@
                     <a class="navbar-brand nav logo" href="{{ url('/') }}" title="" rel="home">
                         <object class="master-logo" type="image/svg+xml"></object>
                     </a>
-                    <a class="navbar-brand nav logo retina" href="{{ url('/') }}" title="" rel="home">--}}
+                    <a class="navbar-brand nav logo retina" href="{{ url('/') }}" title="" rel="home">
                         <object class="master-logo" type="image/svg+xml"></object>
                     </a>
                 </div>

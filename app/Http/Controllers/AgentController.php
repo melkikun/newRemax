@@ -30,7 +30,6 @@ class AgentController extends Controller
 
 public function index($account){
     $first = 1;
-    $lang = $this->cekLang($this->request->input("language"));
     $id = $this->api->getOfficeInfo($account);
     if ($id != "") {
         try {
@@ -41,7 +40,7 @@ public function index($account){
                 $office = json_decode($officeApi->getBody()->getContents(), true);
                 $agent = json_decode($agentApi->getBody()->getContents(), true);
                 $agentInfo = json_decode($agentInfoApi->getBody()->getContents(), true);
-                return view("agent", compact('office', 'agent', 'agentInfo', 'first'));
+                return view("agentS", compact('office', 'agent', 'agentInfo', 'first'));
             } else {
                 abort("404");
             }
@@ -140,7 +139,7 @@ public function searchAgent($account){
                 $office = json_decode($officeApi->getBody()->getContents(), true);
                 $agent = json_decode($agentApi->getBody()->getContents(), true);
                 $agentInfo = json_decode($agentInfoApi->getBody()->getContents(), true);
-                return view("agent", compact('office', 'agent', 'agentInfo'));
+                return view("agents", compact('office', 'agent', 'agentInfo'));
             } else {
                 return view('agent_not_found');
             }

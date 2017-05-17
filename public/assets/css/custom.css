@@ -621,7 +621,7 @@ html {
 
 /*box khusus section map di page search*/
 .search-map-wrap {
-    width: 33.33%;
+    width: 20%;
     float: left;
     padding: 8px;
     cursor: pointer;

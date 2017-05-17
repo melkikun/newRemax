@@ -6,12 +6,18 @@
         display: inline-block;
         margin: 0 0 10px;
     }
+    .wide-2 .sum .team-color{
+        margin-top: 10px;
+    }
+    #page-content-agent .wide_container_2{
+        width: 100%;
+    }
 </style>
 @stop
 @section('js')
 @stop
 @section('title')
-RE/MAX ABOUT US
+RE/MAX AGENT {{$detail['data'][0]['mmbsFirstName']}}
 @stop
 @section('content')
 <!-- Page Content -->
@@ -101,7 +107,7 @@ RE/MAX ABOUT US
             </ul>
             <!-- tab-links -->
             <div class="tab-content">
-             <div id="tab3" class="tab" style="display: block;">
+               <div id="tab3" class="tab" style="display: block;">
                 <div class="wide-2">
                     <div class="container">
                         @if (count($property['data'])!= null)
@@ -117,24 +123,24 @@ RE/MAX ABOUT US
                                 </div>
                             </div>
                             <div class="item-info col-lg-7 col-md-6 col-sm-6">
-                                <h4><a href="property_page.html">AVA High Line 89 - 916 Apartments</a></h4>
-                                <p class="team-color">525 W 28th St, New York, NY 10001</p>
+                                <h4><a href="property_page.html">{{$property['data']['0']['listTitle']}}</a></h4>
+                                <p class="team-color">{{$property['data']['0']['listStreetName']}}</p>
                                 <div class="block">
                                     <div class="col-md-3 col-sm-3 col-xs-3 cat-img">
                                         <img src="assets/img/bedroom.png" alt="">
-                                        <p class="info-line">3 Bedrooms</p>
+                                        <p class="info-line">{{$property['data']['0']['listBedroom']}} Bedrooms</p>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-3 cat-img">
                                         <img src="assets/img/bathroom.png" alt="">
-                                        <p class="info-line">1 Bathroom</p>
+                                        <p class="info-line">{{$property['data']['0']['listBathroom']}} Bathroom</p>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-3 cat-img">
                                         <img src="assets/img/square.png" alt="">
-                                        <p class="info-line">100 m<span class="rank">2</span></p>
+                                        <p class="info-line">{{$property['data']['0']['listLandSize']}} m<sup>2</sup></p>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-3 cat-img">
-                                        <img src="assets/img/garage.png" alt="">
-                                        <p class="info-line">1 Garage</p>
+                                        <img src="assets/img/land.png" alt="">
+                                        <p class="info-line">{{$property['data']['0']['listBuildingSize']}} m<sup>2</sup></p>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-3 line"></div>
@@ -142,15 +148,28 @@ RE/MAX ABOUT US
                                 <div class="col-md-3 col-sm-3 col-xs-3 line"></div>
                                 <div class="col-md-3 col-sm-3 col-xs-3 line"></div>
                                 <hr>
-                                <p>Aenean quis sem nisi. Aliquam vehicula gravida orci, nec pretium mi ultricies in. Donec fermentum pulvinar mauris neque justo ...</p>
+                                <p>
+                                    {{$property['data']['0']['listDescription']}}
+                                    @for ($i = 0; $i < 100; $i++)
+                                    &nbsp;
+                                    @endfor
+                                </p>
                             </div>
                             <div class="item-price col-lg-2 col-md-3 col-sm-3 col-xs-12">
                                 <div class="sum col-sm-12 col-xs-6">
-                                    <p>$1,000,000</p>
-                                    <p class="team-color">for rent</p>
+                                    <p>
+                                        @if ($property['data']['0']['listListingPrice'] >= 100000000000)
+                                        Rp. {{$property['data']['0']['listListingPrice']/1000000000000}} T
+                                        @elseif($property['data']['0']['listListingPrice'] >= 1000000000)
+                                        Rp. {{$property['data']['0']['listListingPrice']/1000000000}} M
+                                        @else
+                                        Rp. {{$property['data']['0']['listListingPrice']/1000000}} JT
+                                        @endif
+                                    </p>
+                                    <p class="team-color" style="color: red">FOR SELL</p>
                                 </div>
                                 <span class="ffs-bs col-xs-12 btn-half-wth"><a href="property_page.html" class="btn btn-default btn-small">learn more <i class="fa fa-caret-right"></i></a></span>
-                                <div class="sum favorite col-sm-12 col-xs-6">
+                                {{-- <div class="sum favorite col-sm-12 col-xs-6">
                                     <div class="bookmark col-xs-3" data-bookmark-state="empty">
                                         <span class="title-add">Add to bookmark</span>
                                     </div>
@@ -159,7 +178,7 @@ RE/MAX ABOUT US
                                         <span class="plus-add">Add to compare</span>
                                     </div>
                                     <p class="col-xs-3">Comp</p>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         @endforeach
