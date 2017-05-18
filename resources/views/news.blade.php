@@ -1,176 +1,156 @@
-<!DOCTYPE html>
-
-<html lang="en-US">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{asset('assets/fonts/font-awesome.css')}}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('assets/css/selectize.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/customsas.css') }}" type="text/css">
-
-
-    <title>News</title>
-</head>
-
-<body class="page-news">
-
-<div id="fb-root"></div>
-
-<script>(function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=293151397519359";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<style>
-    .image-news .caption-news {
-        vertical-align: middle;
-        text-align: center;
-        top: 50%;
+@extends('template')
+@section('css')
+<style type="text/css">
+    .panel-body{
+        text-align:justify;
     }
-
-    .caption-news span.border {
-        background-color: #E21A22;
-        opacity: 0.7;
-        color: white;
-        padding: 18px;
-        letter-spacing: 5px;
-        font-size: 13px;
-        border: 2px;
-        border-radius: 10px
+    .date-post {
+        color: red;
+        font-size: 10px;
+        font-weight: bold;
     }
-
+    .user-post {
+        color: #004480;
+        font-size: 10px;
+        font-weight: bold;
+    }
+    .transparent {
+        color: transparent !important;
+    }
+    .info-release{
+        font-size: 10px !important;
+        color: red !important;
+        margin-right: 0px !important;
+    }
+    .info-date{
+        font-size: 10px !important;
+        color: red !important;
+        color: #004480 !important;
+    }
+    .mrgt3x{
+        margin-top: 0px !important;
+    }
+    .post-area{
+        margin-bottom: 0px !important;
+    }
 </style>
-
-
-<!-- Preloader -->
-<div id="page-preloader">
-    <div class="loader-ring"></div>
-    <div class="loader-ring2"></div>
-</div>
-<!-- End Preloader -->
-
-<!-- Wrapper -->
-<div class="wrapper">
-    <!-- Start Header -->
-    <div id="header">@include('layout.header')</div>
-    <!-- End Header -->
-
-    <!-- Page Content -->
-    <div id="page-content" class="blog-styles">
-        <div class="image-news"
-             style="background-image: url({{ asset('images/backgroundPage/news.jpg') }})">
-
-            <div class="caption" style="top:40%">
-                <span class="border"> RE/MAX News </span>
-            </div>
-
+@stop
+@section('title')
+RE/MAX NEWS 
+@stop
+@section('content')
+<!-- Page Content -->
+<div id="page-content">
+    <div class="text-center" style="background: url('{{ asset('/') }}images/news.jpg') no-repeat center;background-size:cover;">
+        <div class="header-pattern">
+            <div class="container blog-sm">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="header-text">
+                        </div>
+                    </div>
+                </div>  
+            </div>  
         </div>
+    </div>
+    <div class="container-fluid top-indent">
+        @if ($news['data'] != null)
+        <div class="container-fluid">
+            <div class="row">
+                <div class="faq">
+                    <div class="col-md-9">
+                        <div class="panel-group" id="accordion">
+                            @foreach ($news['data'] as $key => $value)
+                            <div class="panel panel-default animated out" data-delay="0" data-animation="fadeInUp">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title"> 
+                                        @if ($key == 0)
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$key}}" aria-expanded="true"> 
+                                            {{$value['wbnlTitle']}}
+                                            <br>
+                                            <span class="info-release">{{date('D, d F Y',strtotime($value['wbnlCreatedTime']))}}</span>
+                                            <span class="info-date"> / {{$value['wbnlCreatedUserId']}}</span>
+                                        </a> 
+                                        @else
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$key}}" aria-expanded="false"> 
+                                            {{$value['wbnlTitle']}}
+                                        </a> 
+                                        @endif
 
-        <div class="container-article">
-
-            <ol class="breadcrumb">
-                <li><a href="{{ url('/') }}">Home</a></li>
-                <li class="">News</li>
-            </ol>
-            
-            <div id="main" class="row">
-                <div class="content-news row" style="margin-bottom: 40px;">
-
-                    @foreach($body->data as $data)
-                        <a href="{{ url('news',$data->id) }}">
-                            <article class="article-news">
-                                <div class="article-inner">
-                                    @if($data->links->wbneFileId != null)
-                                        @foreach($body->linked->wbneFileId as $linked)
-
-                                            @if($data->links->wbneFileId == $linked->id)
-                                                <div class="article-image">
-                                                    <div class="image"
-                                                         style="background-image: url({{ $uri.$linked->filePreview }})"></div>
-                                                </div>
-                                            @endif
-
-                                        @endforeach
-
+                                    </h4>
+                                </div>
+                                @if ($key == 0)
+                                <div id="collapse{{$key}}" class="panel-collapse collapse in">
                                     @else
-                                        <div class="article-image">
-                                            <div class="image"
-                                                 style="background-image: url({{ asset('images/Not_available.png') }})"></div>
-                                        </div>
-                                    @endif
-
-                                    <div class="article-content">
-                                        <div class="article-wrapper">
-                                            <div>
-                                                <span class="news-date">{{ Carbon\Carbon::parse($data->wbnlCreatedTime)->format('D')  }}
-                                                    , {{ $data->wbnlCreatedTime }}</span>
+                                    <div id="collapse{{$key}}" class="panel-collapse collapse">
+                                        @endif
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                @foreach ($news['linked']['wbneFileId'] as $element)
+                                                @if ($element['fileId'] == $value['links']['wbneFileId'])
+                                                <img src="https://www.remax.co.id/prodigy/papi/{{$element['filePreview']}}" style="width: 100%; height: 200px">
+                                                @endif
+                                                @endforeach
                                             </div>
-                                            <a href="{{ url('news.detail',$data->id) }}"><h2
-                                                        class="article-title">{{ $data->wbnlTitle }}</h2></a>
+                                            <div class="col-sm-9">
+                                                <div class="panel-body">
+                                                    <?php
+                                                    $content = preg_replace('#<[^>]+>#', '', $value['wbnlContent']);
+                                                    $split = explode(" ", $content);
+                                                    if (count($split) > 80) {
+                                                        for ($i = 0; $i < 80; $i++) {
+                                                            echo $split[$i] . " ";
+                                                        }
+                                                    } else {
+                                                        echo $content;
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <span class="news-created">{{ $data->wbnlCreatedUserId }}</span>
+                                        <div class="clearfix"></div>
+                                        <div class="row">
+                                            <div class="col-sm-12 text-right">
+                                                <a href="{{ url("news/$value[id]") }}" class="btn btn-danger btn-outline" id="detail{{$key}}"  style="margin-bottom: 20px; margin-right: 20px;">
+                                                    Read More
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </article>
-                    @endforeach
-
-                </div>
-                <div class="sidebar-facebook">
-                    <aside id="sidebar-news">
-                        <div class="block-news">
-
-                            <div class="fb-page" data-href="https://www.facebook.com/remaxindo/" data-tabs="timeline"
-                                 data-width="280" data-small-header="true" data-adapt-container-width="true"
-                                 data-hide-cover="false" data-show-facepile="true">
-                                <blockquote cite="https://www.facebook.com/remaxindo/" class="fb-xfbml-parse-ignore"><a
-                                            href="https://www.facebook.com/remaxindo/">REMAX Indonesia</a></blockquote>
+                                @endforeach
                             </div>
-
                         </div>
-                    </aside>
-
+                    </div>
+                    <div class="col-md-3">
+                        <div class="right-side-bar mrgb5x">
+                            <div class="blog-post mrgt3x animated out" data-delay="0" data-animation="fadeInUp">
+                                <div class="rightbar-heading mrgb3x">
+                                    <h4>LATEST POST</h4>
+                                </div>
+                                @foreach ($news['data'] as $key => $value)
+                                <div class="post-area">
+                                    <a href="{{ url("news/$value[id]") }}">
+                                        <h4>{{$value['wbnlTitle']}}</h4>
+                                        <div class="date-post">
+                                            Posted On {{date('D, d F Y',strtotime($value['wbnlCreatedTime']))}}
+                                        </div>
+                                        <div class="user-post">
+                                            By :  {{$value['wbnlCreatedUserId']}}
+                                        </div> 
+                                    </a>
+                                </div>
+                                @if ($key == 5)
+                                @break
+                                @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-        </div>
+            @endif
+        </section>
     </div>
-
-    <!-- Start Footer -->
-    <div id="footer">@include('layout.footer')</div>
-    <!-- End Footer -->
-</div><!-- Wrapper -->
-
-<script type="text/javascript" src="{{ asset('assets/js/jquery-2.1.4.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery.magnific-popup.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/bootstrap/js/bootstrap.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/jquery.placeholder.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/retina-1.1.0.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/masonry.pkgd.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/selectize.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/custom.js') }}"></script>
-<!--[if gt IE 8]> -->
-<script type="text/javascript" src="{{ asset('assets/js/custom.js')}}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/readmore.min.js') }}"></script>
-<!--[endif]-->
-<!-- 
-<script>
-    $('.article-news').readmore({
-        collapsedHeight: 300
-    });
-</script> -->
-
-</body>
-
-</html>
+</div>
+@stop

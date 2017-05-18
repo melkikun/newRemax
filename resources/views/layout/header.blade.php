@@ -3,10 +3,10 @@
             <div class="container">
                 <div class="navbar-brand nav">
                     <a class="navbar-brand nav logo" href="{{ url('/') }}" title="" rel="home">
-                        <object class="master-logo" type=""></object>
+                        <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/backgroundPage/124.png'); background-size: cover; height: 70px; margin-top: -20px;"></object>
                     </a>
                     <a class="navbar-brand nav logo retina" href="{{ url('/') }}" title="" rel="home">
-                        <object class="master-logo" type="image/svg+xml"></object>
+                        <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/backgroundPage/124.png'); background-size: cover; height: 70px; margin-top: -20px;"></object>
                     </a>
                 </div>
                 <nav class="primary start main-menu">
@@ -45,10 +45,10 @@
                 </a>
                 <div class="navbar-brand nav">
                     <a class="navbar-brand nav logo" href="{{ url('/') }}" title="" rel="home">
-                        <object class="master-logo" type="image/svg+xml"></object>
+                       <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/backgroundPage/124.png'); background-size: cover; height: 70px; margin-top: -20px;"></object>
                     </a>
                     <a class="navbar-brand nav logo retina" href="{{ url('/') }}" title="" rel="home">
-                        <object class="master-logo" type="image/svg+xml"></object>
+                       <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/backgroundPage/124.png'); background-size: cover; height: 70px; margin-top: -20px;"></object>
                     </a>
                 </div>
                 <div class="mob-menu drop-close hidden">

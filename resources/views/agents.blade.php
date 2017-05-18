@@ -80,6 +80,7 @@
         font-size: 20px;
         font-weight: bold;
         padding: 20px;
+        text-align: center;
     }
     p{
         font-family: "Montserrat",sans-serif;
@@ -98,6 +99,7 @@
     .aTop.remaxBlueColor {
         border: 2px dotted;
         padding: 10px;
+        margin-bottom: 20px;
     }
     .agent-img img{
         margin-bottom:15px;
@@ -113,6 +115,19 @@
     }
     .btn{
         padding: 10px 10px;
+    }
+    .content-card {
+        border: 2px dotted gray;
+        padding: 10px;
+    }
+    .card {
+        margin-bottom: 30px;
+    }
+    .card-title {
+        text-align: center;
+    }
+    a{
+        color: black !important;
     }
 </style>
 @stop
@@ -141,97 +156,101 @@ RE/MAX ABOUT US
     <div class="container-fluid" id="agent-list-page">
         {!! Form::open(["url"=>"cariagen/search", "method"=>"get"]) !!}
         <div class="input-group">
-           <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for..." name="agents">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit">SEARCH!</button>
-            </span>
-        </div><!-- /input-group -->
-        {!! Form::close() !!}
-    </div>
-    @if (isset($first))
-    @else
-    <div class="agents-list">
-        @if (($agent['data']) != null)
-        @foreach ($agent['data'] as $key => $value)
-        <div class="card col-sm-3">
-        <img class="card-img-top" src="{{ asset('/') }}images/default.jpg" alt="Card image cap">
-         <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." name="agents">
+                <span class="input-group-btn">
+                    <button class="btn btn-danger" type="submit">SEARCH!</button>
+                </span>
+            </div><!-- /input-group -->
+            {!! Form::close() !!}
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-block">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+        @if (isset($first))
+        @else
+        <div class="agents-list">
+            @if (($agent['data']) != null)
+            @foreach ($agent['data'] as $key => $value)
+            <div class="card col-sm-3">
+                <a href="{{ url('/') }}{{$value['mmbsUrl']}}">
+                    <div class="content-card">
+                        <img class="card-img-top" src="{{ asset('/') }}images/default.jpg" alt="#" style="width: 80%; margin-left: 10%;">
+                        <div class="card-block">
+                            <h4 class="card-title">{{$value['mmbsFirstName']}}&nbsp;{{$value['mmbsLastName']}}</h4>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fa fa-phone"></i>&nbsp;&nbsp;&nbsp;{{$value['mmbsCellPhone1']}}
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;{{$value['mmbsEmail']}}
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fa fa-id-card-o"></i>&nbsp;&nbsp;&nbsp;{{$value['id']}}
+                            </li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+            @endforeach
         </div>
-    </div>
-    @endforeach
-</div>
-@else
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-    <div class="row">
-        <div class="container-fluid">
-            <div class="agents-not-found">SORRY!!, DATA NOT FOUND</div>
+        @else
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="agents-not-found">SORRY!!, DATA NOT FOUND</div>
+                </div>
+            </div>
         </div>
+        @endif
+        @endif
     </div>
-</div>
-@endif
-@endif
-
-</div>
 </section>
 <section>
     @foreach ($agentInfo['data'] as $element)
     {!! str_replace('<div class="container">', '<div class="container-fluid">', $element['wbilContent']) !!}
-    @endforeach
-    <div class="container-fluid">
-        <div class="row" style="text-align: center;">
-            <button type="button" class="button-agents"  id="button-agents">CLICK HERE TO JOIN US</button>
-        </div>
-    </div>
-    <br/>
-    <br/>
-</section>
-<section>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title "><b>Become a Proud RE/MAX AGENT</b></h4>
-                </div>
-                <div class="modal-body">
-                    <form action="#">
-                        <div class="form-group">
-                            <label for="email">Name:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter Name" name="aname">
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd">Email:</label>
-                            <input type="password" class="form-control" id="email" placeholder="Enter Email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd">Phone:</label>
-                            <input type="password" class="form-control" id="phone" placeholder="Enter phone" name="phone">
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd">Message:</label>
-                            <textarea  class="form-control" id="message" name="message" placeholder="Enter Message"></textarea>
-                        </div>
-                        <button type="button" class="btn btn-danger col-sm-12">Submit</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
+            @endforeach
+            <div class="container-fluid">
+                <div class="row" style="text-align: center;">
+                    <button type="button" class="button-agents" id="button-agents" data-toggle="modal" data-target="#myModal">CLICK HERE TO JOIN US</button>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-@stop
+            <br/>
+            <br/>
+            </section>
+            <section>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title "><b>Become a Proud RE/MAX AGENT</b></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="#">
+                                    <div class="form-group">
+                                        <label for="email">Name:</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Enter Name" name="aname">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pwd">Email:</label>
+                                        <input type="password" class="form-control" id="email" placeholder="Enter Email" name="email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pwd">Phone:</label>
+                                        <input type="password" class="form-control" id="phone" placeholder="Enter phone" name="phone">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="pwd">Message:</label>
+                                        <textarea  class="form-control" id="message" name="message" placeholder="Enter Message"></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-danger col-sm-12">Submit</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            @stop

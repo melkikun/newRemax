@@ -15,8 +15,7 @@ RE/MAX FRANCHISE
     @foreach($body->data as $content)
     @foreach($body->linked->wbfrFileId as $linked)
     @if($content->links->wbfrFileId == $linked->id)
-    <div class="parallax"
-    style="background-image: url({{ $uri.$linked->filePreview }})">
+    <div class="parallax" style="background-image: url({{ $uri.$linked->filePreview }})">
     <div class="caption">
         <span class="border">{{ $content->wbflTitle }}</span>
     </div>

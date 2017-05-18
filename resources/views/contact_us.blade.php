@@ -1,14 +1,17 @@
-@extends('template')
-@section('title')
-Contact Us
-@stop
-@section('css')
-<style>
+ @extends('template')
+ @section('title')
+ Contact Us
+ @stop
+ @section('css')
+ <style>
     @media screen and (min-width: 240px) and (max-width: 768px) {
         .contact-form {
             margin-top: 10px;
             position: relative;
         }
+    }
+    #mapinfo{
+        width: 200px;
     }
 </style>
 @stop
@@ -16,9 +19,7 @@ Contact Us
 @section('content')
 <!-- start Page Content -->
 <div id="page-content">
-
     <div class="section-contact-us" style="background-image: url({{ asset('images/backgroundPage/contact-us-alt1.jpg') }});background-size:cover;">
-
         <div class="container">
             <div class="row">
                 <div id="map2" class="map contact-map"></div>
@@ -87,10 +88,6 @@ Contact Us
 <script type="text/javascript" src="{{ asset('assets/js/markerwithlabel_packed.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/custom-map.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/custom.js') }}"></script>
-<!--[if gt IE 8]-->
-<script type="text/javascript" src="{{ asset('assets/js/ie.js')}}"></script>
-<![endif]-->
-
 <script>
         //Google map for contact us page
         $(document).ready(function () {
@@ -262,29 +259,29 @@ Contact Us
                     ]
                 }
                 ]);
-var marker = new MarkerWithLabel({
+ var marker = new MarkerWithLabel({
     position: latlng,
     map: map,
     labelContent: '<div class="marker-loaded"><div class="map-marker"><img src="{{ asset('images/map_marker.png') }}" alt=""></div></div>',
     labelClass: "marker-style"
 });
 
-var contentString = '<div id="mapinfo">' +
+ var contentString = '<div id="mapinfo">' +
 
-'<h4 class="firstHeading">{{$body->data->compName}}</h4>' +
+ '<h4 class="firstHeading">{{$contact['data']['frofOfficeName']}}</h4>' +
 
-'<h6></h6>' +
-'<div><i class="fa fa-phone"></i><a href="tel:+48 192 28383746">Phone : {{$body->data->compPhone1}} </a></div>' +
-'<div><i class="fa fa-mobile"></i><a href="tel:+48 192 28383746">Fax : {{ $body->data->compFax1 }}}</a></div>' +
-'<p id="at">@</p>' +
-'<div class="contactblock"><a href="#">{{ $body->data->compEmail }}</a></div>' +
+ '<h6></h6>' +
+ '<div><i class="fa fa-phone"></i><a href="tel:+48 192 28383746">Phone :{{$contact['data']['frofPhone1']}} </a></div>' +
+ '<div><i class="fa fa-mobile"></i><a href="tel:+48 192 28383746">Fax : {{$contact['data']['frofFax']}}</a></div>' +
+ '<p id="at">@</p>' +
+ '<div class="contactblock"><a href="#">{{$contact['data']['frofEmail']}}</a></div>' +
 
-'</div>';
+ '</div>';
 
-var infowindow = new google.maps.InfoWindow({
+ var infowindow = new google.maps.InfoWindow({
     content: contentString
 });
-marker.addListener('click', function () {
+ marker.addListener('click', function () {
     infowindow.open(map, marker);
 });
 }
