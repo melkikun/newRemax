@@ -3,10 +3,10 @@
             <div class="container">
                 <div class="navbar-brand nav">
                     <a class="navbar-brand nav logo" href="{{ url('/') }}" title="" rel="home">
-                        <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/backgroundPage/124.png'); background-size: cover; height: 70px; margin-top: -20px;"></object>
+                        <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/124.png'); background-size: cover; height: 70px; margin-top: -10px;"></object>
                     </a>
                     <a class="navbar-brand nav logo retina" href="{{ url('/') }}" title="" rel="home">
-                        <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/backgroundPage/124.png'); background-size: cover; height: 70px; margin-top: -20px;"></object>
+                        <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/124.png'); background-size: cover; height: 70px; margin-top: -10px;"></object>
                     </a>
                 </div>
                 <nav class="primary start main-menu">
@@ -18,7 +18,7 @@
                         @endforeach
                         <li>
                             <a href="https://www.remax.co.id/admin/">
-                                <i class="fa fa-lock" style="font-size:20px;"></i>
+                                <i class="fa fa-lock" style="font-size:10px;"></i>
                             </a>
                         </li>
                         @foreach($language->data as $lg)
@@ -45,10 +45,10 @@
                 </a>
                 <div class="navbar-brand nav">
                     <a class="navbar-brand nav logo" href="{{ url('/') }}" title="" rel="home">
-                       <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/backgroundPage/124.png'); background-size: cover; height: 70px; margin-top: -20px;"></object>
+                       <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/124.png'); background-size: cover; height: 70px; margin-top: -10px;"></object>
                     </a>
                     <a class="navbar-brand nav logo retina" href="{{ url('/') }}" title="" rel="home">
-                       <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/backgroundPage/124.png'); background-size: cover; height: 70px; margin-top: -20px;"></object>
+                       <object class="master-logo" type="" style="background: url('{{ asset('/') }}images/124.png'); background-size: cover; height: 70px; margin-top: -10px;"></object>
                     </a>
                 </div>
                 <div class="mob-menu drop-close hidden">
@@ -65,7 +65,7 @@
                             @endforeach
                             <li>
                                 <a href="https://www.remax.co.id/admin/">
-                                    <i class="fa fa-lock" style="font-size:20px;"></i>
+                                    <i class="fa fa-lock" style="font-size:10px;"></i>
                                 </a>
                             </li>
                             @foreach($language->data as $lg)
