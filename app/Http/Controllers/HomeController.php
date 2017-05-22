@@ -18,8 +18,7 @@ class HomeController extends Controller
     private $request;
     private $bahasa;
 
-    public function __construct(Api $api ,Request $request, bahasa $bahasa)
-    {
+    public function __construct(Api $api ,Request $request, bahasa $bahasa){
         $this->api = $api;
         $this->client = new GuzzleHttpClient(['base_uri' => $this->api->getBaseUri(),'verify' => false]);
         $this->uri = $this->api->getBaseUri();

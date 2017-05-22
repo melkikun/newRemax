@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield('meta')
     <title>@yield('title')</title>
+    <link href="{{ asset('assets/fonts/font-awesome.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css')}}" type="text/css">
-    <link href="{{ asset('assets/fonts/font-awesome.css') }}" rel="stylesheet" type="text/css">
     @yield('css')
 </head>
 

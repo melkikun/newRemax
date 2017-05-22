@@ -16,19 +16,17 @@
 
 // Route::get('/','HomeController@getData')->name('/');
 
-Route::get('properties',function(){
-    return view('search');
-})->name('properties');
+// Route::get('properties', 'PropertyController@index')->name('properties');
 
 // Route::get('properties/search',[
 //    'uses' => 'HomeController@searchHome',
 //    'as' =>'search.home',
 // ]);
 
-Route::get('property/{listUrl}',[
-   'uses' => 'PropertyController@showPropertyDetail',
-   'as' => 'property.show',
-]);
+// Route::get('property/{listUrl}',[
+//    'uses' => 'PropertyController@showPropertyDetail',
+//    'as' => 'property.show',
+// ]);
 
 // Route::get('agents','AgentController@getData')->name('agents');
 
@@ -69,10 +67,10 @@ Route::group(['domain' => '{account}.localhost'], function () {
 	//news detail
 	Route::get('/news/{id}', 'NewsController@listNews')->name('news.detail');
 	//property detail
-	Route::get('/property/{id}', 'PropertyController@listProperty')->name('property.detail');
+	Route::get('properties', 'PropertyController@index')->name('properties');
 	//news detail
 	Route::get('/news/{id}', 'NewsController@newsDetail')->name('property.detail');
-	Route::get("properties/search/", 'PropertyController@search')->name('property.filter');
+	// Route::get("properties/search/", 'PropertyController@search')->name('property.filter');
 	Route::get('/{id}', 'AgentController@detailAgent')->name('property.detail');	
 
 	Route::get('cariagen/search','AgentController@searchAgent')->name('property.detail');
