@@ -65,53 +65,37 @@ class PropertyController extends Controller
         }
     }
 
-    public function showPropertyDetail($account, $listUri){
+    public function showPropertyDetail($account, $param){
+       $language = $this->bahasa->setSession($this->request->input("language")); 
+       $id = $this->api->getOfficeInfo($account);
+       if ($id != "") {
         try {
-            $getClient = $this->client->get('listing/'.$listUri);
-            $body = $getClient->getBody();
-            $body = \GuzzleHttp\json_decode($body, false);
-            $uri = $this->uri;
-
-            // get Office Id
-            $officeId = $body->linked->listOfficeId->frofId;
-            $getOffice = $this->client->get('listing?filter[listOfficeId]='.$officeId);
-            $office = $getOffice->getBody();
-            $office = \GuzzleHttp\json_decode($office,false);
-            // end office id
-
-            // get membership
-            $membershipId = $body->linked->listMmbsId->mmbsId;
-            $getMembership = $this->client->get('Membership/'.$membershipId);
-            $membership = $getMembership->getBody();
-            $membership = \GuzzleHttp\json_decode($membership,false);
-
-            //
-
-            if ($getClient->getStatusCode() == 200) {
-                return view('property_page')
-                ->with(['body' => $body])
-                ->with(['uri' => $uri])
-                ->with(['membership' => $membership])
-                ->with(['office' => $office]);
-
+            $officeApi = $this->client->get("franchise", ["query" => ['filter[frofId]' => "$id"]]);
+            $propertyApi = $this->client->get("listing", ["query" => ['filter[listUrl]' => "'$param'"]]);
+            $propertySuggestApi = $this->client->get("listing", ["query" => ['filter[frofId]' => "$id", 'pageNumber' => "1", 'pageSize' => '10']]);
+            if ($officeApi->getStatusCode() == 200 && $propertyApi->getStatusCode() == 200) {
+                $office = json_decode($officeApi->getBody()->getContents(), true);
+                $property = json_decode($propertyApi->getBody()->getContents(), true);
+                $propertySuggest = json_decode($propertySuggestApi->getBody()->getContents(), true);
+                if ($property['data'] != null)
+                    return view("property_page", compact('office', 'property', 'propertySuggest'));
+                else
+                    abort("404");
             } else {
-                return redirect()
-                ->back()
-                ->with('error', 'something error with API');
+                abort("404");
             }
-
-
-        }catch (RequestException $e){
-            echo Psr7\str($e->getRequest());
-            if($e->hasResponse()){
-
-                echo Psr7\str($e->getResponse());
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                abort("404");
+            } else {
+                echo Psr7\str($e->getRequest());
             }
         }
     }
+}
 
-    public function postInquiry(Request $request){
-    }
+public function postInquiry(Request $request){
+}
 
 
 }

@@ -152,7 +152,7 @@ Properties
                                         @if ($property['data']!=null)
                                         @foreach ($property['data'] as $element)
                                         <div id="marker9" data-target="'marker'+ prop.id" class="search-map-wrap" style="opacity: 1;">
-                                            <a href="property/Ruko_Strategis" style="display: block;">
+                                            <a href="{{ url('property') }}/{{$element['listUrl']}}" style="display: block;">
                                                 <div class="house-card buy">
                                                  @foreach ($property['linked']['listFile'] as $element2)
                                                  @if($element2['fileId'] == $element['links']['listFile'][0])
