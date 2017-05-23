@@ -38,7 +38,7 @@ class PropertyController extends Controller
                 }
                 $officeApi = $this->client->get("franchise", ["query" => ['filter[frofId]' => "$id"]]);
                 $propertyTotalApi = $this->client->get("listing", ["query" => ['filter[frofId]' => "$id"]]);
-                $propertyApi = $this->client->get("listing", ["query" => ['filter[frofId]' => "$id", 'pageNumber' => "$currentPage", 'pageSize' => '12']]);
+                $propertyApi = $this->client->get("listing", ["query" => ['filter[frofId]' => "$id", 'pageNumber' => "$currentPage", 'pageSize' => '100']]);
                 $facilityApi = $this->client->get("facility");
                 $listingcategoryApi = $this->client->get("listingcategory");
                 $propertytypeApi = $this->client->get("propertytype");
@@ -49,7 +49,7 @@ class PropertyController extends Controller
                     $facility = json_decode($facilityApi->getBody()->getContents(), true);
                     $propertytype = json_decode($propertytypeApi->getBody()->getContents(), true);
                     $listingcategory = json_decode($listingcategoryApi->getBody()->getContents(), true);
-                    return view("search", compact('office', 'property', 'propertyTotal', 'currentPage', 'facility', 'listingcategory', 'propertytype'));
+                    return view("property", compact('office', 'property', 'propertyTotal', 'currentPage', 'facility', 'listingcategory', 'propertytype'));
                 } else {
                     abort("404");
                 }
@@ -65,7 +65,7 @@ class PropertyController extends Controller
         }
     }
 
-    public function showPropertyDetail($listUri){
+    public function showPropertyDetail($account, $listUri){
         try {
             $getClient = $this->client->get('listing/'.$listUri);
             $body = $getClient->getBody();

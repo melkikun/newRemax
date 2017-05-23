@@ -4778,7 +4778,7 @@ figure {
 #page-content-search .container .wide_container_2 .location-map {
   border-right: 1px solid #e6e6e6;
   height: 50px;
-  padding-left: 12px;
+  padding-left: 30px;
 }
 /* line 3565, ../scss/helpers/_classes.scss */
 #page-content-search .container .wide_container_2 .location-map .input-group {
@@ -6337,7 +6337,7 @@ input[type="checkbox"] {
 }
 /* line 575, ../scss/helpers/_forms.scss */
 .tabs .tab.active {
-  display: inline-block;
+  display: block;
 }
 
 /***** checkbox *****/

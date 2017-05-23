@@ -43,7 +43,7 @@ class HeaderComposer
             $language = $this->lang;
             $language = Session::set('lang',$language);
 
-            $getClient = $this->client->get('webmenu?language=' . $language . '&filter[wbmnTo]=\'%c%\'');
+            $getClient = $this->client->get('webmenu?language=' . $language . '&filter[wbmnTo]=\'%O%\'');
             $getLanguage = $this->client->get('language');
 
             $header = $getClient->getBody()->getContents();
