@@ -5,27 +5,11 @@ RE/MAX {{$property['data'][0]['listUrl']}}
 @endsection
 @section('css')
 <link rel="stylesheet" href="http://remax.co.id:88/assets/css/owl.carousel.css" type="text/css">
-<style type="text/css">
-    .sidebar-social-media li {
-        cursor: pointer;
-        display: inline-block;
-        margin-bottom: 0;
-        margin-right: 0;
-        min-width: 50px;
-        padding: 0 10px;
-        text-align: center;
-        transform: translateZ(0px);
-        transition-duration: 0.3s;
-        transition-property: transform;
-        transition-timing-function: ease-out;
-    }
-    .sidebar-social-media > li > a > img {
-        width: 35px !important;
-    }
-</style>
 @endsection
 @section('js')
 <script type="text/javascript" src="http://remax.co.id:88/assets/js/owl.carousel.min.js"></script>
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
 $(document).ready(function () {
     $('.js-prop-carousel').owlCarousel({
@@ -49,7 +33,7 @@ $(document).ready(function () {
         return;
     js = d.createElement(s);
     js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
+    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 </script>
@@ -184,8 +168,37 @@ $(document).ready(function () {
                                 <span class="ffs-bs">
                                     <button type="submit" class="btn btn-large btn-primary">contact agent</button>
                                 </span>
-                                <div class="col-xs-12 fav-block">
-                                    <div class="fb-share-button" data-href="http://www.your-domain.com/your-page.html"  data-layout="button_count"></div>
+                                <div class="row col-xs-12">
+                                    <div class="col-sm-4" style="text-align: center;">
+                                        <!--facebook share-->
+                                        <div class="fb-share-button" 
+                                             data-href="https://developers.facebook.com/docs/plugins/" 
+                                             data-layout="button" data-size="small" data-mobile-iframe="true">
+                                            <a class="fb-xfbml-parse-ignore" 
+                                               target="_blank" 
+                                               href="#">
+                                                Share
+                                            </a>
+                                        </div>
+                                        <!--end facebook share-->
+                                    </div>
+
+                                    <div class="col-sm-4" style="text-align: center;">
+                                        <!--twitter share-->
+                                        <a href="https://twitter.com/share" 
+                                           class="twitter-share-button" 
+                                           data-show-count="false">
+                                            Tweet
+                                        </a>
+                                        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                        <!--end twitter share-->
+                                    </div>
+                                    <div class="col-sm-4" style="text-align: center;">
+                                        <!--google plus share-->
+                                        <!-- Place this tag where you want the share button to render. -->
+                                        <div class="g-plus" data-action="share" data-annotation="none"></div
+                                        <!--end google plus share-->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -280,36 +293,35 @@ $(document).ready(function () {
                         </div>
                     </form>
                 </div>
-                <div class="col-md-4 col-xs-12 some-prp">
-                    <h4>Here is some Similar property:</h4>
-                    <p class="team-color">in London, UK</p>
+                <div class="col-md-4 col-xs-12 some-prp" style="height: 400px; overflow-y: scroll;">
+                    <h4>Property may you like:</h4>
                     <hr>
+                    @foreach ($propertySuggest['data'] as $key => $suggest)
+                    @php
+                    $img0 = $suggest['links']['listFile'][0];
+                    @endphp
                     <div class="property-block-small">
                         <a href="property_page.html">
-                            <div class="property-image-small" style="background-image: url(assets/img/5388048563_61c3bd3306_z.jpg);"></div>
-                            <h3>37 Great Russell St</h3>
-                            <p class="team-color">London, 37 Great Russell St Street Good</p>
-                            <h4>$15,000/month</h4>
+                            @foreach ($propertySuggest['linked']['listFile'] as $linkImg)
+                            @if ($linkImg['fileId'] == $img0)
+                            <div class="property-image-small" style="background-image: url(&quot;https://www.remax.co.id/prodigy/papi/{{$linkImg['filePreview']}}&quot;);"></div>
+                            @endif
+                            @endforeach
+                            <h3>{{$suggest['listTitle']}}</h3>
+                            <p class="team-color">{{$suggest['listStreetName']}}</p>
+                            <h4>
+                                @if ($suggest['listListingPrice'] >= 100000000000)
+                                Rp. {{$suggest['listListingPrice']/1000000000000}} T
+                                @elseif($suggest['listListingPrice'] >= 1000000000)
+                                Rp. {{$suggest['listListingPrice']/1000000000}} M
+                                @else
+                                Rp. {{$suggest['listListingPrice']/1000000}} JT
+                                @endif
+                            </h4>
                         </a>
                     </div>
                     <hr>
-                    <div class="property-block-small">
-                        <a href="property_page.html">
-                            <div class="property-image-small" style="background-image: url(assets/img/5388048563_61c3bd3306_z.jpg);"></div>
-                            <h3>37 Great Russell St</h3>
-                            <p class="team-color">London, 37 Great Russell St Street Good</p>
-                            <h4>$15,000/month</h4>
-                        </a>
-                    </div>
-                    <hr>
-                    <div class="property-block-small">
-                        <a href="property_page.html">
-                            <div class="property-image-small" style="background-image: url(assets/img/5388048563_61c3bd3306_z.jpg);"></div>
-                            <h3>37 Great Russell St</h3>
-                            <p class="team-color">London, 37 Great Russell St Street Good</p>
-                            <h4>$15,000/month</h4>
-                        </a>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
