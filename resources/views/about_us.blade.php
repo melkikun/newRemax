@@ -23,23 +23,25 @@ RE/MAX ABOUT US
     @php
     $uri = 'http://genius.intelligence.id/papi/'
     @endphp
+    @if($body['data'] != null)
     @foreach($body['data'] as $content)
     @foreach($body['linked']['wbabFileId'] as $linked)
     @if($content['links']['wbabFileId'] == $linked['id'])
     <div class="parallax" style="background-image: url({{ $uri.$linked['filePreview'] }})">
-    <div class="caption">
-        <span class="border">{{ $content['wbalTitle'] }}</span>
-    </div>
-</div>
-@endif
-@endforeach
-<div class="wrapper-main-agent">
-    <div class="content-main-agent">
-        <div class="container">
-            <?php echo $content['wbalContent']; ?>
+        <div class="caption">
+            <span class="border">{{ $content['wbalTitle'] }}</span>
         </div>
     </div>
-</div>
-@endforeach
+    @endif
+    @endforeach
+    <div class="wrapper-main-agent">
+        <div class="content-main-agent">
+            <div class="container">
+                <?php echo $content['wbalContent']; ?>
+            </div>
+        </div>
+    </div>
+    @endforeach
+    @endif
 </div>
 @stop

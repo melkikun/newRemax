@@ -40,7 +40,7 @@ public function index($account){
                 $office = json_decode($officeApi->getBody()->getContents(), true);
                 $agent = json_decode($agentApi->getBody()->getContents(), true);
                 $agentInfo = json_decode($agentInfoApi->getBody()->getContents(), true);
-                return view("agentS", compact('office', 'agent', 'agentInfo', 'first'));
+                return view("agents", compact('office', 'agent', 'agentInfo', 'first'));
             } else {
                 abort("404");
             }

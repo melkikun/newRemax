@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7;
 use App\Http\Helpers\Api;
 use App\Http\Helpers\SesiBahasa as bahasa;
 use Session;
-
+use Cache;
 class HomeController extends Controller
 {
     private $client;
@@ -26,72 +26,27 @@ class HomeController extends Controller
         $this->bahasa = $bahasa;
     }
 
-    public function index($account)
-    {
-        $language = $this->bahasa->setSession($this->request->input("language")); 
+    public function index($account){
         $id = $this->api->getOfficeInfo($account);
+        $language = $this->bahasa->setSession($this->request->input("language"));
+        $oldLanguage = Cache::remember('lang', 60, function(){
+          return $this->bahasa->setSession($this->request->input("language"));
+      });    
         if($id != ""){
-           try{
-            $getList = $this->client->get('ListingCategory?language='.$language);
-            $getBank = $this->client->get('bank');
-            $bank = \GuzzleHttp\json_decode($getBank->getBody(),true);
-            $list = \GuzzleHttp\json_decode($getList->getBody(),true);
-            if(true){
-                return view('index',compact('bank','list'));
-            }else{
-                return redirect()
-                ->back()
-                ->with('error','something is error with API');
-            }
-        }catch (RequestException $e){
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
-        } 
-    }else{
-        echo "tidak ada account";
-    }
-}
-
-    // public function searchHome()
-    // {
-
-    //    $buySearch = $request->input('buySearch');
-    //    $rentSearch = $request->input('rentSearch');
-//
-//             $client = new GuzzleHttpClient(['base_uri' => 'http://prodigy.intelligence.id/', 'verify' => false]);
-//
-//        try {
-//
-//            $getClient = $client->get('papi/listing?filter[mctyDescription]=\'%' . $buySearch . '%\'');
-//
-//            $data = $getClient->getBody();
-//            $search = \GuzzleHttp\json_decode($data, false);
-//
-//
-//
-//
-//            if (is_null($search->data)) {
-//                return redirect()
-//                    ->back()
-//                    ->with('error', 'Data Not Found');
-//
-//            } else {
-//                dump($search);
-//                return view('search', compact('search'));
-//
-//            }
-//
-//        } catch (RequestException $e) {
-//            echo Psr7\str($e->getRequest());
-//            if ($e->hasResponse()) {
-//                echo Psr7\str($e->getResponse());
-//            }
-//        }
-
-    //     return view('search');
-    // }
+            if($language != $oldLanguage){
+              Cache::flush();
+          }
+          $bank = Cache::remember('banks', 30, function(){
+            $banks = \GuzzleHttp\json_decode($this->client->get('bank')->getBody(),true);
+            return $banks;
+        });
+          $list = Cache::remember('lists', 30, function() use($language){
+             $lists = \GuzzleHttp\json_decode($this->client->get('ListingCategory?language='.$language)->getBody(),true);
+             return $lists;
+         });
+          return view('index', compact('bank', 'list'));
+      }
+  }
 }
 
 

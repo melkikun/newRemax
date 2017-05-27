@@ -7,65 +7,55 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Psr7;
 use App\Http\Helpers\Api;
-use Illuminate\Support\Facades\Session;
-
+use App\Http\Helpers\SesiBahasa as bahasa;
+use Session;
+use Cache;
 
 class FranchiseController extends Controller{
 
+ private $client;
+ private $uri;
+ private $api;
+ private $request;
+ private $bahasa;
 
-    protected $api;
-    protected $client;
-    protected $uri;
-    protected $lang;
-    protected $session;
-
-    public function __construct(Api $api,Request $request)
-    {
-        $this->lang = $request->get('language');
-        $this->api = $api;
-        $this->client = new GuzzleHttpClient(['base_uri' => $this->api->getBaseUri(), 'verify' => false]);
-        $this->uri = $this->api->getBaseUri();
-    }
-
-
-    public function index(){
+ public function __construct(Api $api ,Request $request, bahasa $bahasa)
+ {
+  $this->api = $api;
+  $this->client = new GuzzleHttpClient(['base_uri' => $this->api->getBaseUri(),'verify' => false]);
+  $this->uri = $this->api->getBaseUri();
+  $this->request = $request;
+  $this->bahasa = $bahasa;
+}
 
 
-            $test = new GuzzleHttpClient(['base_uri' => 'http://genius.intelligence.id/papi/','verify' => false]);
-        try {
-
-            if($this->lang == null){
-                $language = Session::get('lang');
-            }else{
-                $language = $this->lang;
-            }
-
-
-            $getClient = $test->get('webfranchise?language='.$language);
-            $body = $getClient->getBody();
-            $body = \GuzzleHttp\json_decode($body, false);
-            $uri = $this->uri;
-
-
-            if ($getClient->getStatusCode() == 200) {
-                return view('franchise')
-                    ->with(['body' => $body])
-                    ->with(['uri' => $uri]);
-            } else {
-                return redirect()
-                    ->back()
-                    ->with('error', 'something is error');
-            }
-
-
-        } catch (RequestException $e) {
-            echo Psr7\str($e->getRequest());
-
-            if($e->hasResponse()){
-                echo Psr7\str($e->getResponse());
-            }
-
+public function index($account){
+    $id = $this->api->getOfficeInfo($account);
+    $uri = $this->uri;
+    $language = $this->bahasa->setSession($this->request->input("language"));
+    $oldLanguage = Cache::remember('lang', 60, function(){
+        return $this->bahasa->setSession($this->request->input("language"));
+    });    
+    if($id != ""){
+      try {
+        if($language != $oldLanguage){
+            Cache::flush();
         }
-
-    }
+        $body = Cache::remember('bodys', 60, function() use($language){
+          $this->client = new GuzzleHttpClient(['base_uri' => 'http://genius.intelligence.id/papi/','verify' => false]);
+          $about = $this->client->get('webfranchise?language='.$language);
+          $bodys = \GuzzleHttp\json_decode($about->getBody(), true);
+          return $bodys;
+      });
+        return view('franchise', compact('body', 'uri'));
+    } catch (RequestException $e) {
+        echo Psr7\str($e->getRequest());
+        if ($e->hasResponse()) {
+          echo Psr7\str($e->getResponse());
+      }
+  }
+}else{
+  echo "tidak ada account";
+}
+}
 }

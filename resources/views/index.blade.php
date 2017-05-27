@@ -116,8 +116,18 @@ RE/MAX HOME
 		<div class="home-center">
 			<div class="tabs-wrap pos-relative">
 				<ul class="row m0">
-					<li><a href="#buyForm" class="buy active">{{$list['data']['0']['lsclName'] }}</a></li>
-					<li><a href="#rentForm" class="rent">{{$list['data']['1']['lsclName'] }}</a></li>
+					@if ($list['data']!= null)
+					<li>
+						<a href="#buyForm" class="buy active">
+							{{$list['data']['0']['lsclName'] }}
+						</a>
+					</li>
+					<li>
+						<a href="#rentForm" class="rent">
+							{{$list['data']['1']['lsclName'] }}
+						</a>
+					</li>
+					@endif
 				</ul>
 				<a href="{{ url('properties') }}" class="adv-search">Advanced Search</a>
 			</div>
@@ -142,6 +152,7 @@ RE/MAX HOME
 
 		<div class="wrapper-icon" style="background: white;">
 			<div class="bankpartner-slide js-bankpartner-slide">
+				@if ($bank['data'] != null)
 				@foreach($bank['data'] as $data)
 				@foreach($bank['linked']['mbnkFileId'] as $linked)
 				@if($data['links']['mbnkFileId'] == $linked['id'])
@@ -155,6 +166,7 @@ RE/MAX HOME
 				@endif
 				@endforeach
 				@endforeach
+				@endif
 			</div>
 		</div>
 	</div>

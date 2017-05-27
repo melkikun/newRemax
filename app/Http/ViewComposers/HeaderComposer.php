@@ -35,8 +35,7 @@ class HeaderComposer
 
     }
 
-    public function compose(View $view)
-    {
+    public function compose(View $view){
 
         try {
 

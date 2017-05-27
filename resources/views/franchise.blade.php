@@ -12,21 +12,23 @@ RE/MAX FRANCHISE
     $uri='http://genius.intelligence.id/papi/'
     @endphp
     @include('layout.modal_franchise')
-    @foreach($body->data as $content)
-    @foreach($body->linked->wbfrFileId as $linked)
-    @if($content->links->wbfrFileId == $linked->id)
-    <div class="parallax" style="background-image: url({{ $uri.$linked->filePreview }})">
-    <div class="caption">
-        <span class="border">{{ $content->wbflTitle }}</span>
+    @if($body['data'] != null)
+    @foreach($body['data'] as $content)
+    @foreach($body['linked']['wbfrFileId'] as $linked)
+    @if($content['links']['wbfrFileId'] == $linked['id'])
+    <div class="parallax" style="background-image: url({{ $uri.$linked['filePreview'] }})">
+        <div class="caption">
+            <span class="border">{{ $content['wbflTitle'] }}</span>
+        </div>
     </div>
-</div>
-@endif
-@endforeach
-<div class="wrapper-main-agent">
-    <div class="content-main-agent">
-        <?php echo $content->wbflDescription;?>
+    @endif
+    @endforeach
+    <div class="wrapper-main-agent">
+        <div class="content-main-agent">
+            <?php echo $content['wbflDescription'];?>
+        </div>
     </div>
-</div>
-@endforeach
+    @endforeach
+    @endif
 </div>
 @stop

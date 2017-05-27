@@ -9,6 +9,7 @@ use GuzzleHttp\Psr7;
 use App\Http\Helpers\Api;
 use App\Http\Helpers\SesiBahasa as bahasa;
 use Session;
+use Cache;
 
 class AboutController extends Controller
 {
@@ -30,22 +31,24 @@ class AboutController extends Controller
 
 public function index($account)
 {
- $language = $this->bahasa->setSession($this->request->input("language")); 
  $id = $this->api->getOfficeInfo($account);
+ $language = $this->bahasa->setSession($this->request->input("language"));
+ $oldLanguage = Cache::remember('lang', 60, function(){
+  return $this->bahasa->setSession($this->request->input("language"));
+});    
+ $uri = $this->uri;
  if($id != ""){
-  $this->client = new GuzzleHttpClient(['base_uri' => 'http://genius.intelligence.id/papi/','verify' => false]);
   try {
-    $about = $this->client->get('webabout?filter[wbabFrofId][null]=1&language='.$language);
-    $body = $about->getBody();
-    $body = \GuzzleHttp\json_decode($body, true);
-    $uri = $this->uri;
-    if($about->getStatusCode() == 200){
-      return view('about_us', compact('body', 'uri'));
-    }else{
-      return redirect()
-      ->back()
-      ->with('error','something is error with API');
+    if($language != $oldLanguage){
+      Cache::flush();
     }
+    $body = Cache::remember('bodys', 30, function() use($language){
+      $this->client = new GuzzleHttpClient(['base_uri' => 'http://genius.intelligence.id/papi/','verify' => false]);
+      $about = $this->client->get('webabout?filter[wbabFrofId][null]=1&language='.$language);
+      $bodys = \GuzzleHttp\json_decode($about->getBody(), true);
+      return $bodys;
+    });
+    return view('about_us', compact('body', 'uri'));
   } catch (RequestException $e) {
     echo Psr7\str($e->getRequest());
     if ($e->hasResponse()) {
