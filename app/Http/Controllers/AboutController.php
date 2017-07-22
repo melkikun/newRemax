@@ -38,7 +38,7 @@ public function index($account)
 });    
  $uri = $this->uri;
  if($id != ""){
-  try {
+try {
     if($language != $oldLanguage){
       Cache::flush();
     }
